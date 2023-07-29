@@ -3,6 +3,7 @@ const nodeMailer = require("nodemailer");
 const sendEmail = async(options)=>{
 
     const transport = nodeMailer.createTransport({
+        // host and port add karo agar gamil me dikkat aa rahi hai to
         service:process.env.SMPT_SERVICE,
         auth:{
             user:process.env.SMPT_MAIL,

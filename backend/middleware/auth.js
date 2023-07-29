@@ -16,7 +16,7 @@ exports.isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
 
     // next( new ErrorHandler("yaha error hai!", 400));
     next();
-    console.log(token);
+    // console.log(token);
 });
 
 exports.authorizeRoles = (...roles)=>{

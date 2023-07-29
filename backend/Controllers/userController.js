@@ -3,7 +3,8 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const { restart } = require("nodemon");
-const sendEmail = require("../utils/sendEmail")
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 //Register a User
 
 exports.registerUser = catchAsyncError(async(req,res,next)=>{
@@ -98,4 +99,68 @@ exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
         return next( new ErrorHandler(error.message, 500));
 
     }
+});
+//Reset Password
+
+exports.resetPassword = catchAsyncError(async (req,res,next)=>{
+   
+    //creating token hash
+    const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hax");
+
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire:{$gt:Date.now()},
+    })
+
+    if(!user){
+        return next(new ErrorHandler("Reset Password Token is invalid or has been expired", 400));
+    }
+    if(req.body.password!=req.body.confirmPassword){
+        return next(new ErrorHandler("Password does not matched", 400));
+
+    }
+    user.password = req.body.password;
+    user.resetPasswordToken =undefined;
+    user.resetPasswordExpire= undefined;
+
+    await user.save();
+
+    sendToken(user,200,res);
+
+});
+
+exports.getUserDetails = catchAsyncError(async (req,res,next)=>{
+
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+});
+
+exports.updatePassword = catchAsyncError(async (req,res,next)=>{
+
+    const user = await User.findById(req.user.id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if(!isPasswordMatched){
+        return next(new ErrorHandler("old password in incorrect",400));
+    }
+    if(req.body.newPassword !== req.body.newPassword){
+        return next(new ErrorHandler("password ddoes not match",400));
+    }
+
+    user.password = req.body.newPassword;
+
+    await user.save();
+
+    sendToken(user,200,res);
+
+    
 })
