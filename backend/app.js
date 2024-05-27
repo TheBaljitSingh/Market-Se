@@ -13,9 +13,11 @@ app.use(cookieParser());
 //Route Imports
 const product = require("./Routes/productRoute");
 const user = require("./Routes/userRoute");
+const order = require("./Routes/orderRoute")
  
 app.use("/api/v1", product);
-app.use("/api/v1", user)
+app.use("/api/v1", user);
+app.use("/api/v1", order);
 
 //Middleware for Error Handling
 app.use(errorMiddleware)
@@ -25,25 +27,5 @@ app.use(errorMiddleware)
 
 module.exports = app;
 
-
-/* 
-const product = new Product({
-    name:"Sonata watch",
-    description:"matel finish golden analog watch",
-    price:1499
-})
-product.save();
-
-app.use("/api/v1/product/new",  (req,res)=>{
-    // const product =   Product(req.body);
-    console.log(req.body);
-    res.send();
-
-    res.status(200).json({
-        success:true,
-        product
-    });
-})
-*/
 
 
