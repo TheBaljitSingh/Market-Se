@@ -134,13 +134,15 @@ exports.resetPassword = catchAsyncError(async (req,res,next)=>{
 
 //get User Detail - login wale users ke details ke liyea
 exports.getUserDetails = catchAsyncError(async (req,res,next)=>{
+    console.log(`hello ${req.user.name}, how are you`);
 
     const user = await User.findById(req.user.id);
 
     res.status(200).json({
         success:true,
         user
-    })
+    });
+    
 });
 
 //update the password
@@ -260,3 +262,4 @@ exports.deleteUser = catchAsyncError(async (req,res,next)=>{
         message:"User Deleted successfully",
     });
 })
+

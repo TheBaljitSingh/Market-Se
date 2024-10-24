@@ -57,8 +57,8 @@ exports.updateProduct = (async(req,res,next)=>{
     
         product = await Product.findByIdAndUpdate(req.params.id, req.body,
             {
-            new:true,
-            runValidators:true,
+            new:true, // return the modified documet rather than originl
+            runValidators:true, 
             useFindAndModify:false
         }
         );

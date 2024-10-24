@@ -3,6 +3,7 @@ const app = require("./app");
 const dotenv = require("dotenv");
 const connectDatabase = require("./db/conn");
 
+
 //Handling Uncaught Exception
 process.on("uncaughtException",(err)=>{
     console.log(`Error: ${err.message}`);

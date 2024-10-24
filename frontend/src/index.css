@@ -4,9 +4,17 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+
+/* For WebKit-based browsers like Chrome */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  background-color: #1d4ed8; /* Background color of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff; /* Color of the scrollbar thumb */
+  border-radius: 1px; /* Border radius of the scrollbar thumb */
 }

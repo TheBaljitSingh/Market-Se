@@ -1,39 +1,33 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";import "./index.css"
-import WebFont from "webfontloader"
-import Home from "./components/layout/Home/Home.js"
+import { BrowserRouter as Router, Route, Routes,  BrowserRouter } from 'react-router-dom';
+
+import ProductDetails from './components/ProductDetails'
+import ProductListing from './components/ProductListings';
+import Home from './components/layout/Home/Home';
+import Login from './auth/Login'
+import Profile from "./components/Profile"
+import { UserProvider } from './context/UserContext';
 
 
-function App() {
 
-  React.useEffect(()=>{
 
-    WebFont.load({
-      google:{
-        families:["Roboto", "Droid Sans", "Chilanka"]
-      }
-    })
-  }, [])
-
+export default function App() {
   return (
+    <UserProvider>
+    <Router>
+      <Routes>
+        <Route path="/"  element={<Home/>} />
+        <Route path="/product" element={<ProductListing  />} />
+        <Route path="/product/:id" element={<ProductDetails  />} />
+      </Routes>
+      <Routes>
 
-    <BrowserRouter>
-    
-    <Routes>
-      {/* <Routes> */}
-      {/* <Header/> */}
-      <Route exact path="/" Component={Home}/>
-      {/* <Footer/>       */}
-      {/* </Routes>   */}
-    </Routes>
-    </BrowserRouter>
-
-    
+        <Route path='/login' element={<Login/>} />
+        <Route path='/profile' element={<Profile/>} />
+      </Routes>
+    </Router>
+    </UserProvider>
   );
 }
 
-export default App;
+
