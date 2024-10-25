@@ -1,8 +1,4 @@
-Your README for the e-commerce backend is looking good! Here's a refined version that adds clarity and structure:
-
----
-
-# E-Commerce Backend
+# E-Commerce Backend - Market-Se
 
 This repository contains the backend part of an e-commerce website. I’ve found great support from the StackOverflow community throughout this project.
 
@@ -31,6 +27,3 @@ git clone <repository-url>
 ### Contributing
 If you want to make modifications or contribute to this project, feel free to raise a Pull Request (PR) with your changes!
 
----
-
-Feel free to modify any part to better suit your style!
