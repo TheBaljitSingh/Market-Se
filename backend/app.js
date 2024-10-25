@@ -8,7 +8,7 @@ const app = express();
 
 // Enable CORS
 const corsOptions = {
-    origin: 'http://localhost:3001', // Replace with your client URL
+    origin: process.env.FRONTEND_URL , // Replace with your client URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     optionsSuccessStatus: 200
