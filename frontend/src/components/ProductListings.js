@@ -16,6 +16,7 @@ export default function ProductListing() {
 
 
   useEffect(()=>{
+    
 
     axios.get(`${process.env.REACT_APP_SERVER}/api/v1/products`)
 
