@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import  UserContext from '../context/UserContext';
 import Header from "../components/layout/Header/Header"
 
 const ProfileComponent = () => {
-    const {user, logoutUser, getUserDetails, resetPassword, error, clearError, setUser} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [newPassword, setNewPassword] = useState('');
 
-    useEffect(() => {
-        const fetchUserDetails = async () => {
-            await getUserDetails();
-            fetchOrders();
-        };
-        fetchUserDetails();
-    }, [getUserDetails]);
+   
+      
 
     const fetchOrders = async () => {
         // Dummy data for orders; replace with an actual API call
@@ -27,26 +22,33 @@ const ProfileComponent = () => {
         setLoading(false);
     };
 
-    const handleLogout = async () => {
-        await logoutUser();
-        // Redirect or perform any action after logout
-    };
+    // const handleLogout = async () => {
+    //     await logoutUser();
+    //     // Redirect or perform any action after logout
+    // };
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault();
-        try {
-            await resetPassword({ password: newPassword });
-            alert('Password reset successful');
-            setNewPassword(''); // Clear password input after successful reset
-        } catch (error) {
-            console.error('Reset password error:', error);
-        }
-    };
+    // const handleResetPassword = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await resetPassword({ password: newPassword });
+    //         alert('Password reset successful');
+    //         setNewPassword(''); // Clear password input after successful reset
+    //     } catch (error) {
+    //         console.error('Reset password error:', error);
+    //     }
+    // };
 
     return (
         <>
         <Header/>
 
+        {(!user && (<>  <div>
+            <p>User Not logged in</p>
+            
+            </div> </>))}
+        {
+            user &&
+        
         <div className="bg-gray-100 min-h-screen py-10">
             <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
                 {/* User Info */}
@@ -99,7 +101,7 @@ const ProfileComponent = () => {
                 </div>
 
                 {/* Reset Password Section */}
-                <form onSubmit={handleResetPassword} className="mb-6">
+                <form  className="mb-6">
                     <h2 className="text-2xl font-semibold mb-4">Reset Password</h2>
                     <input
                         type="password"
@@ -109,7 +111,7 @@ const ProfileComponent = () => {
                         className="border border-gray-300 rounded-md p-2 w-full mb-4"
                         required
                         />
-                    {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+                    {/* {error && <p className="text-red-500">{error}</p>} Display error message */}
                     <button
                         type="submit"
                         className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition-colors"
@@ -122,14 +124,15 @@ const ProfileComponent = () => {
                 <div className="border-t pt-6">
                     <button
                         className="bg-red-600 text-white py-2 px-6 rounded hover:bg-red-700 transition-colors"
-                        onClick={handleLogout}
+                        
                         >
                         Logout
                     </button>
                 </div>
             </div>
         </div>
-                        </>
+        }
+        </>
     );
 };
 

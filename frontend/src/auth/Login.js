@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Header from '../components/layout/Header/Header';
 import axios from 'axios';
-import { UserContext } from '../context/UserContext';
+import  UserContext  from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 const Login = () => {
   const navigate = useNavigate()
 
-   const {user, setUser} = useContext(UserContext);
+   const {setUser} = useContext(UserContext);
 
   const [isLogin, setIsLogin] = useState(true); // state to toggle between login and signup
 

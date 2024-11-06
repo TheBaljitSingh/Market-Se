@@ -3,7 +3,7 @@ import Logo from './logo.svg';
 import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { IoCartOutline } from 'react-icons/io5';
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from '../../../context/UserContext';
+import  UserContext  from '../../../context/UserContext';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import axios from 'axios';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext); // Get user from context
+  const { user } = useContext(UserContext); // Get user from context
   const navigate = useNavigate();
 
   const isLoggedIn = !!user; // Check if user is present (logged in)
@@ -23,19 +23,9 @@ export default function Header() {
 
 
   useEffect(() => {
-    // On mount, check if there's a token and user info in cookies
-    const token = Cookies.get('token');
-    const userInfo = Cookies.get('user');
 
 
-
-    if (token && userInfo) {
-      setUser(JSON.parse(userInfo)); // Set user state from cookie
-    }
-
-
-
-  }, [setUser, navigate]);
+  }, []);
 
 
   return (
@@ -56,7 +46,7 @@ export default function Header() {
           <p className="text-xl">Cart</p>
         </button>
 
-        {isLoggedIn ? (
+        {user ? (
              <a href="/profile">
             <div className="flex items-center space-x-2 text-white bg-blue-700 hover:bg-blue-800 font-normal rounded-lg px-5 py-2.5 cursor-pointer transition duration-300 ease-in-out">
               {user.profilePicture ? (
