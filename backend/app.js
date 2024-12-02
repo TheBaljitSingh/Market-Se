@@ -7,14 +7,14 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 // Enable CORS
-const corsOptions = {
-    origin: process.env.FRONTEND_URL , // Replace with your client URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-    optionsSuccessStatus: 200
-};
+
 
 // Enable CORS
+const corsOptions ={
+    origin:'http://localhost:3001', 
+    credentials:true,            //access-control-allow-credentials:true || doubt this is used for cookies??
+    optionSuccessStatus:200
+}
 app.use(cors(corsOptions));
 app.options('*', cors()); // Handle preflight requests
 
@@ -31,7 +31,15 @@ app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 
+
+
 // Middleware for Error Handling
 app.use(errorMiddleware);
+
+
+// adding for show message on get Request
+app.get("/", (req, res)=>{
+    res.send("Server is working fine!");
+})
 
 module.exports = app;
